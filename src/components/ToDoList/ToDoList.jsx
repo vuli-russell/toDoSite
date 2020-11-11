@@ -10,26 +10,28 @@ class ToDoList extends Component {
   }
 
   componentDidMount(){
-    console.log("mounting")
     this._isMounted = true;
     getToDoItems()
     .then(r => {
-      if(this._isMounted){
-        this.setState({toDoItems: r})
+      if(this._isMounted&&r&&r.statusText==="OK"){
+        this.setState({toDoItems: r.data})
+      }else{
+        //do something with this error
+        console.log(r)
       }
     })
   }
 
   componentWillUnmount(){
-    console.log("unmounting")
     this._isMounted = false;
   }
 
   render() {
     return (
-      <>
+      <div>
+        
         {this.state.toDoItems.map(todo => <ToDoItem key={todo._id} toDoItem={todo} />)}
-      </>
+      </div>
     );
   }
 }

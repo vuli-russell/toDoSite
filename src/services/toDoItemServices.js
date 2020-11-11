@@ -1,3 +1,17 @@
 import axios from "axios";
 
-export const getToDoItems = async () => (await axios.get("http://localhost:8080/todo/get")).data
+export const getToDoItems = async () => {
+    try{
+        return await axios.get("http://localhost:8080/todo/get")
+    }catch (error){
+        return error
+    }
+}
+
+export const deleteToDoItem = async(_id) => {
+    try{
+        return await axios.delete("http://localhost:8080/todo/delete/",{data: {_id: _id}})
+    }catch(error){
+        return error
+    }
+}
