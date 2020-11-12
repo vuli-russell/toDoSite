@@ -1,0 +1,8 @@
+@import "../../assets/styles/styles.scss";
+
+.header{
+    margin: $base-spacing;
+    padding: $base-spacing;
+    border: 2px solid black;
+    display: flex;
+}

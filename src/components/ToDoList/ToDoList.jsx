@@ -1,13 +1,17 @@
 import React, { Component } from "react";
-// import styles from "./ToDoList.module.scss";
+import styles from "./ToDoList.module.scss";
 import ToDoItem from "./ToDoItem";
 
 class ToDoList extends Component {
   render() {
     return (
-      <div>
-        {this.props.toDoItems.map(todo => <ToDoItem key={todo._id} toDoItem={todo} />)}
-      </div>
+      <main className={styles.toDoList}>
+        {this.props.toDoItems.map(todo => 
+          <React.Fragment key={todo._id}>
+            <ToDoItem toDoItem={todo} />
+            <hr/>
+          </React.Fragment>)}
+      </main>
     );
   }
 }
