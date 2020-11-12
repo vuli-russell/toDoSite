@@ -15,3 +15,11 @@ export const deleteToDoItem = async(_id) => {
         return error
     }
 }
+
+export const addToDoItem = async(document) => {
+    try{
+        return await axios.post("http://localhost:8080/todo/post/",{...document}) 
+    } catch (error){
+        return error
+    }
+}
