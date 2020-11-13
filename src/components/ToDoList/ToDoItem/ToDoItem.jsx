@@ -27,12 +27,13 @@ class ToDoItem extends Component {
   }
 
   handleFinishEdit = async () => {
-    let description = document.getElementById("description").innerText;
-    let title = document.getElementById("title").innerText;
+    //ToDo: add some validation to inputs before sending them off.
+    let title = document.getElementById(`title-${this.props.toDoItem._id}`).innerText;
+    let description = document.getElementById(`description-${this.props.toDoItem._id}`).innerText;
     // console.log(description)
-    let response = await updateToDoItem({...this.props.toDoItem,title: title, description: description})
-    console.log(response)
-    this.setState({isEditing: false})
+    let response = await updateToDoItem({...this.props.toDoItem,title: title, description: description});
+    console.log(response);
+    this.setState({isEditing: false});
   }
 
   sizeToScrollHeight(e){
@@ -42,11 +43,11 @@ class ToDoItem extends Component {
   }
 
   render() {
-    const {title, description} = this.props.toDoItem;
+    const {title, description, _id} = this.props.toDoItem;
     return (
       <div>
         <header className={styles.title}>
-          <h1 id="title" 
+          <h1 id={`title-${_id}`} 
           contentEditable={ this.state.isEditing ? "true" : "false" }
           suppressContentEditableWarning={true}>
             {title}
@@ -60,7 +61,7 @@ class ToDoItem extends Component {
         </header>
 
         <article className={styles.description}>
-          <p id="description" 
+          <p id={`description-${_id}`}  
           contentEditable={ this.state.isEditing ? "true" : "false" } 
           suppressContentEditableWarning={true}>
             {description}
