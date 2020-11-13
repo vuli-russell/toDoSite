@@ -17,3 +17,17 @@
         }
     }
 }
+
+.description {
+
+    textarea {
+        width: 100%;
+        height: auto;
+        resize: none;
+    }
+
+    p {
+        word-break: break-word;
+        white-space: pre-line;
+    }
+}

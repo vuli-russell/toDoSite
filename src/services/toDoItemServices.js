@@ -8,6 +8,22 @@ export const getToDoItems = async () => {
     }
 }
 
+export const addToDoItem = async(document) => {
+    try{
+        return await axios.post("http://localhost:8080/todo/post/",{...document}) 
+    } catch (error){
+        return error
+    }
+}
+
+export const updateToDoItem = async(document) => {
+    try{
+        return await axios.put("http://localhost:8080/todo/put", {...document})
+    }catch(error){
+        return error
+    }
+} 
+
 export const deleteToDoItem = async(_id) => {
     try{
         return await axios.delete("http://localhost:8080/todo/delete/",{data: {_id: _id}})
@@ -16,10 +32,3 @@ export const deleteToDoItem = async(_id) => {
     }
 }
 
-export const addToDoItem = async(document) => {
-    try{
-        return await axios.post("http://localhost:8080/todo/post/",{...document}) 
-    } catch (error){
-        return error
-    }
-}

@@ -35,6 +35,11 @@ class App extends Component {
         case "delete":
           this.setState({toDoItems : this.state.toDoItems.filter(item => item._id!==data.documentKey._id)})
           break;
+        case "update":
+          this.setState({
+            toDoItems: this.state.toDoItems.map(i => i._id === data.documentKey._id ? {...i, ...data.updateDescription.updatedFields} : i)
+          })
+          break;
         default:
           console.log(data)
       }
