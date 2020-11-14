@@ -5,4 +5,11 @@
     padding: $base-spacing;
     border: 2px solid black;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .headerButtons {
+        display: flex;
+        align-items: center;
+    }
 }

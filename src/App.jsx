@@ -4,7 +4,9 @@ import Header from "./components/Header";
 import ToDoList from "./components/ToDoList";
 import { io } from 'socket.io-client';
 import { getToDoItems } from "./services/toDoItemServices";
-
+import firebase from "./services/firebase"
+import { update } from "./redux/userSlice"
+import { connect } from "react-redux";
 
 class App extends Component {
   constructor(){
@@ -44,6 +46,11 @@ class App extends Component {
           console.log(data)
       }
     })
+
+    //watch user
+    firebase.auth().onAuthStateChanged(user => {
+      this.props.dispatch(update(user.providerData[0]))
+    })
   }
 
   componentWillUnmount(){
@@ -61,5 +68,10 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return{
+    user: state.user
+  }
+}
 
-export default App;
+export default connect(mapStateToProps)(App);
