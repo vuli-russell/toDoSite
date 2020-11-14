@@ -50,7 +50,7 @@ class ToDoItem extends Component {
   render() {
     const {title, description, _id, complete} = this.props.toDoItem;
     return (
-      <div className={`${styles.toDoItem} ${complete ? styles.complete : null}`}>
+      <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`}>
         <header className={styles.header}>
           <div className={styles.title}>
             <span className={styles.faIcon} 
