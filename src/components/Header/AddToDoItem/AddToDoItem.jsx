@@ -17,7 +17,7 @@ class AddToDoItem extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    addToDoItem({...this.state, users: [this.props.user.state.uid], dateCreated: new Date()})
+    addToDoItem({...this.state, users: [this.props.user.state.uid], dateCreated: new Date(), complete: false})
     this.setState({
       title:"",description:""
     });

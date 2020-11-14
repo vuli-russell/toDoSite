@@ -21,7 +21,7 @@ class App extends Component {
     this._isMounted = true;
 
     this.socket.on("toDoChange", data => {
-
+      console.log("socket recieved"+data)
       switch(data.operationType){
         case "insert":
           this.setState({toDoItems: [...this.state.toDoItems, data.fullDocument]})

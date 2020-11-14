@@ -1,0 +1,23 @@
+@import "../../../assets/styles/styles.scss";
+
+.filters {
+
+    label {
+        padding: $base-spacing*0.5;
+        margin: $base-spacing*0.5;
+        border-radius: 10px;
+        border: 1px solid black;
+        transition: all 0.25s ease;
+    }
+
+    input {
+        display: none;
+    }
+
+    input:checked + label {
+        background-color: rgb(46, 212, 46);
+        // color: white;
+    }
+}
+
+
