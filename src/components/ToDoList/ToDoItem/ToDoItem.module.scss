@@ -1,33 +1,40 @@
 @import "../../../assets/styles/styles.scss";
 
-.title {
-    display : flex;
-    align-items: center;
 
-    .faIcon {
-        margin: $base-spacing;
-        padding: $base-spacing;
-        border: 2px solid white;
-        transition: all 0.3s ease;
+.toDoItem {
 
-        &:hover {
-            background-color: $hover-background-color;
-            color: $hover-color;
-            border-color: $hover-border-color;
+    &.complete{
+        p, h1 {
+            text-decoration: line-through;
         }
     }
-}
 
-.description {
+    .header {
+        display : flex;
+        justify-content: space-between;
+        align-items: center;
 
-    textarea {
-        width: 100%;
-        height: auto;
-        resize: none;
+        .title {
+            display: flex;
+            margin: 0px;
+            padding: 0px;
+            align-items: center;
+        }
+
+
     }
 
-    p {
-        word-break: break-word;
-        white-space: pre-line;
+    .description {
+
+        textarea {
+            width: 100%;
+            height: auto;
+            resize: none;
+        }
+
+        p {
+            word-break: break-word;
+            white-space: pre-line;
+        }
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./ToDoItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons"
+import { faEdit, faTrashAlt, faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { deleteToDoItem, updateToDoItem } from "../../../services/toDoItemServices";
 
 class ToDoItem extends Component {
@@ -42,22 +42,35 @@ class ToDoItem extends Component {
     }
   }
 
+  toggleComplete = async () => {
+    let response = await updateToDoItem({...this.props.toDoItem,complete : !this.props.toDoItem.complete});
+    console.log(response);
+  }
+
   render() {
-    const {title, description, _id} = this.props.toDoItem;
+    const {title, description, _id, complete} = this.props.toDoItem;
     return (
-      <div>
-        <header className={styles.title}>
-          <h1 id={`title-${_id}`} 
-          contentEditable={ this.state.isEditing ? "true" : "false" }
-          suppressContentEditableWarning={true}>
-            {title}
-          </h1>
-          <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
-            <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
-          </span> 
-          <span className={styles.faIcon} onClick={this.handleDeleteItem}>
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </span>
+      <div className={`${styles.toDoItem} ${complete ? styles.complete : null}`}>
+        <header className={styles.header}>
+          <div className={styles.title}>
+            <span className={styles.faIcon} 
+            onClick={ this.toggleComplete}>
+              <FontAwesomeIcon icon={ faCheckCircle }/>
+            </span>
+            <h1 id={`title-${_id}`} 
+            contentEditable={ this.state.isEditing ? "true" : "false" }
+            suppressContentEditableWarning={true}>
+              {title}
+            </h1>
+          </div>
+          <section className={styles.buttons}>
+            <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
+              <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
+            </span> 
+            <span className={styles.faIcon} onClick={this.handleDeleteItem}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </span>
+          </section>
         </header>
 
         <article className={styles.description}>

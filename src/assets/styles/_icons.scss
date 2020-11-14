@@ -1,0 +1,14 @@
+@import "./variables";
+
+.faIcon {
+    margin: $base-spacing;
+    padding: $base-spacing;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: $hover-background-color;
+        color: $hover-color;
+        border-color: $hover-border-color;
+    }
+}
