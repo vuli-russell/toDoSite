@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-// import styles from "./AddToDoItem.module.scss";
+import styles from "./AddToDoItem.module.scss";
 import { addToDoItem } from "../../../services/toDoItemServices";
+import { connect } from "react-redux";
 
 class AddToDoItem extends Component {
   constructor(){
@@ -16,7 +17,7 @@ class AddToDoItem extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    addToDoItem(this.state)
+    addToDoItem({...this.state, users: [this.props.user.state.uid]})
     this.setState({
       title:"",description:""
     });
@@ -26,23 +27,30 @@ class AddToDoItem extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  componentDidMount(){
+    let addItemContainer = document.getElementById("addItem")
+    addItemContainer.style.height = `${addItemContainer.scrollHeight}px`;
+  }
+
+
   render() {
     return (
-      <>
+      <section id="addItem" className={styles.addItem}>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Title:
-            <input type="text" name="title" value={this.state.title} onInput={this.handleInput}/>
-          </label>
-          <label>
-            Description:
-            <input type="text" name="description" value={this.state.description} onInput={this.handleInput}/>
-          </label>
+            <input type="text" placeholder="Title" name="title" value={this.state.title} onInput={this.handleInput}/>
+          <br/>
+            <input type="text" placeholder="Description" name="description" value={this.state.description} onInput={this.handleInput}/>
           <input type="submit"/>
         </form>
-      </>
+      </section>
     );
   }
 }
 
-export default AddToDoItem;
+const mapStateToProps = (state) => {
+  return{
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(AddToDoItem);

@@ -1,0 +1,14 @@
+@import "../../../assets/styles/styles.scss";
+
+.addItem {
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    margin: $base-spacing;
+    padding: $base-spacing;
+    border: 2px solid black;
+    
+    > form > *{
+        margin: $base-spacing;
+    } 
+}

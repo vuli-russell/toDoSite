@@ -17,16 +17,8 @@ class App extends Component {
     this.socket = io("http://localhost:8080")
   }
 
-  componentDidMount(){
+  componentDidMount(){   
     this._isMounted = true;
-    getToDoItems()
-    .then(r => {
-      if(this._isMounted&&r&&r.statusText==="OK"){
-        this.setState({toDoItems: r.data})
-      }else{
-        console.log(r)
-      }
-    })
 
     this.socket.on("toDoChange", data => {
 
@@ -49,7 +41,19 @@ class App extends Component {
 
     //watch user
     firebase.auth().onAuthStateChanged(user => {
-      this.props.dispatch(update(user.providerData[0]))
+      this.props.dispatch(update(user ? user.providerData[0]:null))
+      if(this.props.user&&this.props.user.state){
+        getToDoItems(this.props.user.state.uid)
+        .then(r => {
+          if(this._isMounted&&r&&r.statusText==="OK"){
+            this.setState({toDoItems: r.data})
+          }else{
+            console.log(r)
+          }
+        })
+      }else{
+        this.setState({toDoItems: []})
+      }
     })
   }
 

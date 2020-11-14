@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getToDoItems = async () => {
+export const getToDoItems = async (userID) => {
     try{
-        return await axios.get("http://localhost:8080/todo/get")
+        return await axios.get(`http://localhost:8080/todo/get?user=${userID}`)
     }catch (error){
         return error
     }

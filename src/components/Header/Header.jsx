@@ -23,7 +23,7 @@ class Header extends Component {
       <header className = {styles.header}>
         <h1>ToDoList</h1>
         <div className={styles.headerButtons}>
-          {this.props.user ? 
+          {this.props.user&&this.props.user.state ? 
             <>
               <button onClick={() => this.handleOpenToDoItem()}>Add to do item</button>
               <p>{this.props.user.state.displayName}</p>
