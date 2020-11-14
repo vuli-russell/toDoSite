@@ -4,4 +4,20 @@
     margin: $base-spacing;
     padding: $base-spacing;
     border: 2px solid black;
+    
+    > p {
+        text-align: center;
+
+        button {
+            background-color: #00000000;
+            padding: $base-spacing;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: $hover-background-color;
+                color: $hover-color;
+                border-color: $hover-border-color;
+            }
+        }
+    }
 }

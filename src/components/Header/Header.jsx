@@ -3,6 +3,7 @@ import AddToDoItem from "./AddToDoItem";
 import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { signIn, signOut } from "../../services/userServices";
 
 import { connect } from "react-redux";
@@ -15,9 +16,10 @@ class Header extends Component {
     }
   }
 
-  handleOpenToDoItem(){
+  handleToggleAddForm = () =>{
     this.setState({ isAddFormOpen: !this.state.isAddFormOpen });
   }
+
 
   render() {
     return (
@@ -27,7 +29,7 @@ class Header extends Component {
         <div className={styles.headerButtons}>
           {this.props.user&&this.props.user.state ? 
             <>
-              <div className={styles.faIcon} onClick={() => this.handleOpenToDoItem()}>
+              <div className={styles.faIcon} onClick={this.handleToggleAddForm}>
                 <FontAwesomeIcon icon={faPlus} />
               </div>
               <div className={styles.user}>
@@ -39,10 +41,12 @@ class Header extends Component {
               </div>
             </>
             : 
-            <button onClick={signIn}>Sign In</button> }
+            <div className={styles.faIcon} onClick={signIn}>
+              <FontAwesomeIcon icon={faGoogle} />
+            </div>}
         </div>
       </header>
-      {this.state.isAddFormOpen ? <AddToDoItem /> : null}
+      {this.state.isAddFormOpen ? <AddToDoItem closeForm={this.handleToggleAddForm}/> : null}
       </>
     );
   }

@@ -40,7 +40,9 @@ class AddToDoItem extends Component {
             <input type="text" placeholder="Title" name="title" value={this.state.title} onInput={this.handleInput}/>
           <br/>
             <input type="text" placeholder="Description" name="description" value={this.state.description} onInput={this.handleInput}/>
+          <br/>
           <input type="submit"/>
+          <button onClick={this.props.closeForm}>Close</button>
         </form>
       </section>
     );
