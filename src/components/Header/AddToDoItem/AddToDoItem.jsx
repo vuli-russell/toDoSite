@@ -17,7 +17,7 @@ class AddToDoItem extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    addToDoItem({...this.state, users: [this.props.user.state.uid]})
+    addToDoItem({...this.state, users: [this.props.user.state.uid], dateCreated: new Date()})
     this.setState({
       title:"",description:""
     });
@@ -39,7 +39,7 @@ class AddToDoItem extends Component {
         <form onSubmit={this.handleSubmit}>
             <input type="text" placeholder="Title" name="title" value={this.state.title} onInput={this.handleInput}/>
           <br/>
-            <input type="text" placeholder="Description" name="description" value={this.state.description} onInput={this.handleInput}/>
+            <textarea placeholder="Description" name="description" value={this.state.description} onInput={this.handleInput}/>
           <br/>
           <input type="submit"/>
           <button onClick={this.props.closeForm}>Close</button>

@@ -8,7 +8,18 @@
     padding: $base-spacing;
     border: 2px solid black;
     
-    > form > *{
-        margin: $base-spacing;
-    } 
+    > form {
+        
+        display: flex;
+        flex-direction: column;
+
+        > *{
+            margin: $base-spacing;
+        } 
+
+        > textarea{
+            resize: none;
+            height: 150px;
+        }
+    }
 }
