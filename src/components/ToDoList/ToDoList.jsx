@@ -7,12 +7,11 @@ import { signIn } from "../../services/userServices";
 
 class ToDoList extends Component {
   state = {
-    filterFn: (i) => true,
+    statusFilterFn: (i) => true,
+    textFilterFn: (i) => true,
   }
   render() {
-
     const toDoItems = this.props.toDoItems;
-    console.log(toDoItems)
     return (
       <main className={styles.toDoList}>
         {
@@ -21,12 +20,16 @@ class ToDoList extends Component {
               toDoItems.length ?
                 (
                   <>
-                    <FilterPanel setState={this.setState.bind(this)}/>
-                    {toDoItems.filter(this.state.filterFn).sort((a,b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated)).map(todo => 
-                    <React.Fragment key={todo._id}>
-                      <hr/>
-                      <ToDoItem toDoItem={todo} />
-                    </React.Fragment>
+                    <FilterPanel parentState={this.state} setParentState={this.setState.bind(this)}/>
+                    {toDoItems
+                    .filter(this.state.statusFilterFn)
+                    .filter(this.state.textFilterFn)
+                    .sort((a,b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated))
+                    .map(todo => 
+                      <React.Fragment key={todo._id}>
+                        <hr/>
+                        <ToDoItem toDoItem={todo} />
+                      </React.Fragment>
                     )}
                   </>
                 ) 

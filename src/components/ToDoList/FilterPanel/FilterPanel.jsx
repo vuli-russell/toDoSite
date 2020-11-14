@@ -2,25 +2,36 @@ import React, { Component } from "react";
 import styles from "./FilterPanel.module.scss";
 
 class FilterPanel extends Component {
-  setParentState = this.props.setState;
+  
+  parentState = this.props.parentState;
+  setParentState = this.props.setParentState;
 
 
   handleStatusInput = e => {
-   
     switch (e.target.id) {
       case "all": 
-        this.setParentState({filterFn: (i) => true})
+        this.setParentState({...this.parentState,statusFilterFn: (i) => true})
         break;
       case "complete":
-        this.setParentState({filterFn: (i) => i.complete})
+        this.setParentState({...this.parentState,statusFilterFn: (i) => i.complete})
         break;
       case "incomplete":
-        this.setParentState({filterFn: (i) => !i.complete})
+        this.setParentState({...this.parentState,statusFilterFn: (i) => !i.complete})
         break;
       default:
         break;
     }
   }
+
+  handleSearchInput = e => {
+    const searchStr = (e.target.value)
+    this.setParentState({
+      ...this.parentState,
+      textFilterFn: (i) => i.title.includes(searchStr)||i.description.includes(searchStr)
+    })
+  }
+
+  
   
   render() {
     return (
@@ -31,6 +42,7 @@ class FilterPanel extends Component {
           <label htmlFor="complete">Complete</label>
           <input type="radio" name="statusFilter" id="incomplete" onChange={this.handleStatusInput}/>
           <label htmlFor="incomplete">Incomplete</label>
+          <input type="text" placeholder="Search Content" onInput={this.handleSearchInput}/>
       </section>
     );
   }
