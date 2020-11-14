@@ -11,5 +11,32 @@
     .headerButtons {
         display: flex;
         align-items: center;
+
+        .faIcon {
+            border: 2px solid white;
+            transition: all 0.3s ease;
+    
+            &:hover {
+                background-color: $hover-background-color;
+                color: $hover-color;
+                border-color: $hover-border-color;
+            }
+        }
+        
+        .user {
+            border-left: 1px solid black;
+            display: flex;
+            align-items: center;
+
+            img {
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+
+        * {
+            margin:$base-spacing;
+            // padding: $base-spacing;
+        }
     }
 }
