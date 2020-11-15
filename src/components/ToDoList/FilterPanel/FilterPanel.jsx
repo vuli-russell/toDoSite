@@ -27,7 +27,7 @@ class FilterPanel extends Component {
     const searchStr = (e.target.value)
     this.setParentState({
       ...this.parentState,
-      textFilterFn: (i) => i.title.includes(searchStr)||i.description.includes(searchStr)
+      textFilterFn: (i) => i.title.match(new RegExp(searchStr,"i"))||i.description.match(new RegExp(searchStr,"i"))
     })
   }
 

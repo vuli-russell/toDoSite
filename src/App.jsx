@@ -7,6 +7,7 @@ import { getToDoItems } from "./services/toDoItemServices";
 import firebase from "./services/firebase"
 import { update } from "./redux/userSlice"
 import { connect } from "react-redux";
+import {fetchToDoItems, toDoItemsLoaded} from "./redux/toDoSlice";
 
 class App extends Component {
   constructor(){
@@ -14,12 +15,15 @@ class App extends Component {
     this.state = {
       toDoItems: []
     }
-    this.socket = io("https://vuli-todo-list-api.herokuapp.com/")
+    //change before deploy
+    // this.socket = io("https://vuli-todo-list-api.herokuapp.com/")
+    this.socket = io("http://localhost:8080/")
   }
 
   componentDidMount(){   
     this._isMounted = true;
 
+  //listen for mongodb changes via socket
     this.socket.on("toDoChange", data => {
       console.log("socket recieved"+data)
       switch(data.operationType){
@@ -43,6 +47,7 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       this.props.dispatch(update(user ? user.providerData[0]:null))
       if(this.props.user&&this.props.user.state){
+        this.props.dispatch(fetchToDoItems(this.props.user.state.uid));
         getToDoItems(this.props.user.state.uid)
         .then(r => {
           if(this._isMounted&&r&&r.statusText==="OK"){
@@ -74,7 +79,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    user: state.user
+    user: state.user,
+    toDos : state.toDos 
   }
 }
 

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const url = "https://vuli-todo-list-api.herokuapp.com/"
+//change before deploy
+// const url = "https://vuli-todo-list-api.herokuapp.com/"
+const url = "http://localhost:8080/"
 
 export const getToDoItems = async (userID) => {
     try{
