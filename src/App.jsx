@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       toDoItems: []
     }
-    this.socket = io("http://localhost:8080")
+    this.socket = io("https://vuli-todo-list-api.herokuapp.com/")
   }
 
   componentDidMount(){   
