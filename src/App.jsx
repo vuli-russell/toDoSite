@@ -7,7 +7,7 @@ import { getToDoItems } from "./services/toDoItemServices";
 import firebase from "./services/firebase"
 import { update } from "./redux/userSlice"
 import { connect } from "react-redux";
-import {fetchToDoItems, toDoItemsLoaded} from "./redux/toDoSlice";
+import {fetchToDoItems} from "./redux/toDoSlice";
 
 class App extends Component {
   constructor(){

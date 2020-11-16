@@ -9,6 +9,7 @@ class ToDoItem extends Component {
     super(props)
     this.state = {
       isEditing: false,
+      tagInput: ""
     }
   }
 
@@ -33,7 +34,7 @@ class ToDoItem extends Component {
     // console.log(description)
     let response = await updateToDoItem({...this.props.toDoItem,title: title, description: description});
     console.log(response);
-    this.setState({isEditing: false});
+    this.setState({...this.state,isEditing: false});
   }
 
   sizeToScrollHeight(e){
@@ -47,11 +48,27 @@ class ToDoItem extends Component {
     console.log(response);
   }
 
+  handleAddTagSubmit = async (e) => {
+    e.preventDefault()
+    console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.length ? [...this.props.toDoItem.tags,this.state.tagInput] : [this.state.tagInput] }))
+    this.setState({...this.state, tagInput: ""})
+  }
+
+  handleAddTagInput = (e) => {
+    this.setState({...this.state, tagInput: e.target.value})
+  }
+
+  handleDeleteTag = async (tagToDelete) => {
+    console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.filter(tag => tag!==tagToDelete)}));
+  }
+
   render() {
     const {title, description, _id, complete} = this.props.toDoItem;
     return (
       <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`}>
+
         <header className={styles.header}>
+          {/* complete check and title */}
           <div className={styles.title}>
             <span className={styles.faIcon} 
             onClick={ this.toggleComplete}>
@@ -63,6 +80,7 @@ class ToDoItem extends Component {
               {title}
             </h1>
           </div>
+          {/* edit and delete */}
           <section className={styles.buttons}>
             <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
               <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
@@ -71,8 +89,22 @@ class ToDoItem extends Component {
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>
           </section>
-        </header>
 
+        </header>
+        {/* tags */}
+        <div className={styles.tags}>
+          <form onSubmit={this.handleAddTagSubmit}>
+            <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
+            <input type="submit"/>
+          </form>
+          {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => <div className={styles.tag}>
+            <p>{tag}</p>
+            <button onClick={()=>this.handleDeleteTag(tag)}>delete</button>
+            </div>) 
+          : null}
+        </div>
+
+        {/* description */}
         <article className={styles.description}>
           <p id={`description-${_id}`}  
           contentEditable={ this.state.isEditing ? "true" : "false" } 

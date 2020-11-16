@@ -16,6 +16,11 @@
 
     border: 2px white dashed;
 
+    .buttons{
+        display: flex;
+        
+    }
+
     .header {
         display : flex;
         justify-content: space-between;
