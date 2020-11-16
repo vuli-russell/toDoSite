@@ -93,3 +93,67 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px){
+    
+    .toDoItem {
+
+        .tagContainer {
+    
+            .tagAddIcon {
+                margin-right: $base-spacing*0.8;
+                font-size: $font-size*0.8;
+                padding: $base-spacing*0.5*0.8;
+            }
+    
+            .tag {
+                margin: 0px $base-spacing*0.8;
+                padding: $base-spacing*0.5*0.8;
+                border-radius: $base-spacing*0.8;
+    
+                .tagDeleteIcon {
+                    font-size: $font-size*0.8;
+                }
+            }
+        }
+    
+        .description {
+    
+            p {
+                padding: 0px $base-spacing*0.8;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .toDoItem {
+
+        .tagContainer {
+    
+            .tagAddIcon {
+                margin-right: $base-spacing*0.5;
+                font-size: $font-size*0.5;
+                padding: $base-spacing*0.5*0.5;
+            }
+    
+            .tag {
+                margin: 0px $base-spacing*0.5;
+                padding: $base-spacing*0.5*0.5;
+                border-radius: $base-spacing*0.5;
+    
+                .tagDeleteIcon {
+                    font-size: $font-size*0.5;
+                }
+            }
+        }
+    
+        .description {
+    
+            p {
+                padding: 0px $base-spacing*0.5;
+            }
+        }
+    }
+}
+

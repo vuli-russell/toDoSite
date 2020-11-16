@@ -13,3 +13,19 @@
         border-color: $hover-border-color;
     }
 }
+
+@media only screen and (max-width: 768px){
+    
+    .faIcon {
+        margin: $base-spacing * 0.8;
+        padding: $base-spacing * 0.8;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    
+    .faIcon {
+        margin: $base-spacing * 0.5;
+        padding: $base-spacing * 0.5;
+    }
+}

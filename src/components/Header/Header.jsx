@@ -34,7 +34,7 @@ class Header extends Component {
               </div>
               <div className={styles.user}>
                 <p>{this.props.user.state.displayName}</p>
-                <img src={this.props.user.state.photoURL} alt="profile"/>
+                <img src={this.props.user.state.photoURL} alt="profile" id="profileImg"/>
                 <div className={styles.faIcon} onClick={signOut}>
                   <FontAwesomeIcon icon={faSignOutAlt} />
                 </div>

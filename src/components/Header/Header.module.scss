@@ -29,3 +29,42 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px){
+    .header {
+        margin: $base-spacing * 0.8;
+        padding: $base-spacing * 0.8;
+
+        .headerButtons {
+            .user {
+                img {
+                    height: 40px;
+                }
+            }
+
+            *{
+                margin:$base-spacing * 0.8;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px){
+    
+    .header {
+        margin: $base-spacing * 0.5;
+        padding: $base-spacing * 0.5;
+
+        .headerButtons {
+            .user {
+                img {
+                    height: 30px;
+                }
+            }
+
+            *{
+                margin:$base-spacing * 0.5;
+            }
+        }
+    }
+}
