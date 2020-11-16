@@ -56,6 +56,9 @@ h1 {
 }
 .toDoItem .tagContainer .tagAddIcon {
   margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
 }
 .toDoItem .tagContainer .tagAddIcon:hover {
   color: #2ed42e;
@@ -71,6 +74,7 @@ h1 {
   margin: 0px;
 }
 .toDoItem .tagContainer .tag .tagDeleteIcon {
+  font-size: 20px;
   margin-left: 10px;
   cursor: pointer;
 }

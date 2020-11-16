@@ -95,11 +95,6 @@ class ToDoItem extends Component {
 
         {/* tags */}
         <div className={styles.tagContainer}>
-          <span className={styles.tagAddIcon} onClick={this.handleAddTagSubmit}>
-            <FontAwesomeIcon icon={ faPlusCircle }/>
-          </span> 
-          <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
-
           {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => 
             <div className={styles.tag}>
               <p>{tag}</p>
@@ -108,6 +103,12 @@ class ToDoItem extends Component {
               </span> 
             </div>) 
           : null}
+          <form onSubmit={this.handleAddTagSubmit}> 
+            <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
+          </form>
+          <span className={styles.tagAddIcon} onClick={this.handleAddTagSubmit}>
+            <FontAwesomeIcon icon={ faPlusCircle }/>
+          </span>
         </div>
 
         {/* description */}
