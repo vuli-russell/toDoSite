@@ -51,8 +51,13 @@ class ToDoItem extends Component {
 
   handleAddTagSubmit = async (e) => {
     e.preventDefault()
-    console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.length ? [...this.props.toDoItem.tags,this.state.tagInput] : [this.state.tagInput] }))
-    this.setState({...this.state, tagInput: ""})
+    if(this.props.toDoItem.tags&&this.props.toDoItem.tags.includes(this.state.tagInput)){
+      //ToDO: replace alert with show Toast
+      alert("Tag already exists")
+    }else {
+      console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.length ? [...this.props.toDoItem.tags,this.state.tagInput] : [this.state.tagInput] }))
+      this.setState({...this.state, tagInput: ""})
+    }
   }
 
   handleAddTagInput = (e) => {
@@ -92,7 +97,7 @@ class ToDoItem extends Component {
 
           {/* edit delete and color item */}
           <section className={styles.buttons}>
-            <input type="color" onInput={this.handleColorInput} onBlur={this.handleColorChange} value={this.state.color}/>
+            <input type="color" onInput={this.handleColorInput} onBlur={this.handleColorChange} value={this.state.color ? this.state.color : "#ffffff"}/>
             <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
               <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
             </span> 
@@ -106,7 +111,7 @@ class ToDoItem extends Component {
         {/* tags */}
         <div className={styles.tagContainer}>
           {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => 
-            <div className={styles.tag}>
+            <div key={tag} className={styles.tag}>
               <p>{tag}</p>
               <span className={styles.tagDeleteIcon} onClick={()=>this.handleDeleteTag(tag)}>
                 <FontAwesomeIcon icon={ faTimesCircle }/>
