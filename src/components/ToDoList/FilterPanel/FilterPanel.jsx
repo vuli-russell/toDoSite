@@ -23,15 +23,16 @@ class FilterPanel extends Component {
     }
   }
 
-  handleSearchInput = e => {
+  handleSearchContentInput = e => {
     const searchStr = (e.target.value)
     this.setParentState({
       ...this.parentState,
-      textFilterFn: (i) => i.title.match(new RegExp(searchStr,"i"))||i.description.match(new RegExp(searchStr,"i"))
+      contentFilterFn: (i) => i.title.match(new RegExp(searchStr,"i"))
+      ||i.description.match(new RegExp(searchStr,"i"))
+      ||i.tags.some(tag => tag.match(new RegExp(searchStr,"i")))
+      // contentFilterFn: (i) => false
     })
-  }
-
-  
+  }  
   
   render() {
     return (
@@ -42,7 +43,7 @@ class FilterPanel extends Component {
           <label htmlFor="complete">Complete</label>
           <input type="radio" name="statusFilter" id="incomplete" onChange={this.handleStatusInput}/>
           <label htmlFor="incomplete">Incomplete</label>
-          <input type="text" placeholder="Search Content" onInput={this.handleSearchInput}/>
+          <input type="text" placeholder="Search Content" onInput={this.handleSearchContentInput}/>
       </section>
     );
   }

@@ -8,7 +8,7 @@ import { signIn } from "../../services/userServices";
 class ToDoList extends Component {
   state = {
     statusFilterFn: (i) => true,
-    textFilterFn: (i) => true,
+    contentFilterFn: (i) => true,
   }
   render() {
     const toDoItems = this.props.toDoItems;
@@ -23,7 +23,7 @@ class ToDoList extends Component {
                     <FilterPanel parentState={this.state} setParentState={this.setState.bind(this)}/>
                     {toDoItems
                     .filter(this.state.statusFilterFn)
-                    .filter(this.state.textFilterFn)
+                    .filter(this.state.contentFilterFn)
                     .sort((a,b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated))
                     .map(todo => 
                       <React.Fragment key={todo._id}>

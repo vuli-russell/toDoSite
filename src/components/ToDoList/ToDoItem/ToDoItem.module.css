@@ -15,6 +15,7 @@ h1 {
   padding: 10px;
   border: 2px solid white;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 .faIcon:hover {
   background-color: rgba(68, 68, 68, 0.705);
@@ -47,6 +48,34 @@ h1 {
 .toDoItem .header .title h1 {
   margin: 0px;
   padding: 0px;
+}
+.toDoItem .tagContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.toDoItem .tagContainer .tagAddIcon {
+  margin-right: 10px;
+}
+.toDoItem .tagContainer .tagAddIcon:hover {
+  color: #2ed42e;
+}
+.toDoItem .tagContainer .tag {
+  display: flex;
+  border: 1px solid black;
+  margin: 0px 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+.toDoItem .tagContainer .tag p {
+  margin: 0px;
+}
+.toDoItem .tagContainer .tag .tagDeleteIcon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.toDoItem .tagContainer .tag .tagDeleteIcon:hover {
+  color: red;
 }
 .toDoItem .description textarea {
   width: 100%;

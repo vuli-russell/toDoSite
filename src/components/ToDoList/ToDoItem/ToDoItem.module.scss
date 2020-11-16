@@ -18,7 +18,7 @@
 
     .buttons{
         display: flex;
-        
+
     }
 
     .header {
@@ -37,6 +37,41 @@
         }
 
 
+    }
+
+    .tagContainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .tagAddIcon {
+            margin-right: $base-spacing;
+
+             &:hover{
+                 color: rgb(46, 212, 46);
+             }
+        }
+
+        .tag {
+            display: flex;
+            border: 1px solid black;
+            margin: 0px $base-spacing;
+            padding: $base-spacing*0.5;
+            border-radius: $base-spacing;
+            
+            p {
+                margin: 0px;
+            }
+
+            .tagDeleteIcon {
+                margin-left: $base-spacing;
+                cursor: pointer;
+                
+                &:hover {
+                    color: red;
+                }
+            }
+        }
     }
 
     .description {

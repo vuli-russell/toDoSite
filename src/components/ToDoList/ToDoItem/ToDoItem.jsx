@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./ToDoItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { faEdit, faTrashAlt, faCheck, faCheckCircle,  faTimesCircle, faUndo, faPlusCircle} from "@fortawesome/free-solid-svg-icons"
 import { deleteToDoItem, updateToDoItem } from "../../../services/toDoItemServices";
 
 class ToDoItem extends Component {
@@ -72,7 +72,7 @@ class ToDoItem extends Component {
           <div className={styles.title}>
             <span className={styles.faIcon} 
             onClick={ this.toggleComplete}>
-              <FontAwesomeIcon icon={ faCheckCircle }/>
+              <FontAwesomeIcon icon={ complete ? faUndo : faCheckCircle }/>
             </span>
             <h1 id={`title-${_id}`} 
             contentEditable={ this.state.isEditing ? "true" : "false" }
@@ -80,6 +80,7 @@ class ToDoItem extends Component {
               {title}
             </h1>
           </div>
+
           {/* edit and delete */}
           <section className={styles.buttons}>
             <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
@@ -91,15 +92,20 @@ class ToDoItem extends Component {
           </section>
 
         </header>
+
         {/* tags */}
-        <div className={styles.tags}>
-          <form onSubmit={this.handleAddTagSubmit}>
-            <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
-            <input type="submit"/>
-          </form>
-          {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => <div className={styles.tag}>
-            <p>{tag}</p>
-            <button onClick={()=>this.handleDeleteTag(tag)}>delete</button>
+        <div className={styles.tagContainer}>
+          <span className={styles.tagAddIcon} onClick={this.handleAddTagSubmit}>
+            <FontAwesomeIcon icon={ faPlusCircle }/>
+          </span> 
+          <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
+
+          {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => 
+            <div className={styles.tag}>
+              <p>{tag}</p>
+              <span className={styles.tagDeleteIcon} onClick={()=>this.handleDeleteTag(tag)}>
+                <FontAwesomeIcon icon={ faTimesCircle }/>
+              </span> 
             </div>) 
           : null}
         </div>
