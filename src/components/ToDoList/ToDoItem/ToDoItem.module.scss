@@ -10,14 +10,14 @@
     }
 
     &.editing {
-        background-color: rgb(118, 221, 115);
-        border: 2px black dashed;
+        border: 4px black dashed;
     }
 
-    border: 2px white dashed;
+    border: 4px rgba(255, 255, 255, 0) dashed;
 
     .buttons{
         display: flex;
+        align-items: center;
 
     }
 

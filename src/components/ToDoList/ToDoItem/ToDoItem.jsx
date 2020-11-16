@@ -9,7 +9,8 @@ class ToDoItem extends Component {
     super(props)
     this.state = {
       isEditing: false,
-      tagInput: ""
+      tagInput: "",
+      color: this.props.toDoItem.color
     }
   }
 
@@ -62,10 +63,18 @@ class ToDoItem extends Component {
     console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.filter(tag => tag!==tagToDelete)}));
   }
 
+  handleColorInput = async (e) => {
+    this.setState({...this.state, color: e.target.value})
+  }
+
+  handleColorChange = async (e) => {
+    await updateToDoItem({...this.props.toDoItem, color: e.target.value})
+  }
+
   render() {
     const {title, description, _id, complete} = this.props.toDoItem;
     return (
-      <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`}>
+      <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`} style={{backgroundColor : this.state.color}}>
 
         <header className={styles.header}>
           {/* complete check and title */}
@@ -81,8 +90,9 @@ class ToDoItem extends Component {
             </h1>
           </div>
 
-          {/* edit and delete */}
+          {/* edit delete and color item */}
           <section className={styles.buttons}>
+            <input type="color" onInput={this.handleColorInput} onBlur={this.handleColorChange} value={this.state.color}/>
             <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
               <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
             </span> 
