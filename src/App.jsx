@@ -7,7 +7,7 @@ import { getToDoItems } from "./services/toDoItemServices";
 import firebase from "./services/firebase"
 import { update } from "./redux/userSlice"
 import { connect } from "react-redux";
-import {fetchToDoItems} from "./redux/toDoSlice";
+import {fetchToDoItems, toDoItemInserted, toDoItemDeleted, toDoItemUpdated} from "./redux/toDoSlice";
 
 class App extends Component {
   constructor(){
@@ -29,14 +29,15 @@ class App extends Component {
       switch(data.operationType){
         case "insert":
           this.setState({toDoItems: [...this.state.toDoItems, data.fullDocument]})
+          this.props.dispatch(toDoItemInserted(data.fullDocument))
           break;
         case "delete":
           this.setState({toDoItems : this.state.toDoItems.filter(item => item._id!==data.documentKey._id)})
+          this.props.dispatch(toDoItemDeleted(data.documentKey._id))
           break;
         case "update":
-          this.setState({
-            toDoItems: this.state.toDoItems.map(i => i._id === data.documentKey._id ? {...i, ...data.updateDescription.updatedFields} : i)
-          })
+          this.setState({toDoItems: this.state.toDoItems.map(i => i._id === data.documentKey._id ? {...i, ...data.updateDescription.updatedFields} : i)})
+          this.props.dispatch(toDoItemUpdated({_id:data.documentKey._id,updatedFields: data.updateDescription.updatedFields}))
           break;
         default:
           console.log(data)
