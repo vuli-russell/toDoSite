@@ -10,7 +10,7 @@ class FilterPanel extends Component {
   }
 
   handleStatusInput = e => {
-    //set to flase to allow buttons to be selected per click with no defaults after first select
+    //set to false to allow buttons to be selected per click with no defaults after first select
     this.setState({isFirstSelection: null})
     this.statusFilterSelected = e.target.id;
     switch (e.target.id) {
@@ -35,7 +35,6 @@ class FilterPanel extends Component {
       contentFilterFn: (i) => i.title.match(new RegExp(searchStr,"i"))
       ||i.description.match(new RegExp(searchStr,"i"))
       ||i.tags.some(tag => tag.match(new RegExp(searchStr,"i")))
-      // contentFilterFn: (i) => false
     })
   }  
   
@@ -48,7 +47,7 @@ class FilterPanel extends Component {
           <label htmlFor="complete">Complete</label>
           <input type="radio" name="statusFilter" id="incomplete" onChange={this.handleStatusInput}/>
           <label htmlFor="incomplete">Incomplete</label>
-          <input type="text" placeholder="Search Content" onInput={this.handleSearchContentInput}/>
+          <input type="text" placeholder="Search items..." onInput={this.handleSearchContentInput}/>
       </section>
     );
   }
