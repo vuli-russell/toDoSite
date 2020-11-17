@@ -46,8 +46,9 @@ class App extends Component {
     //watch user
     firebase.auth().onAuthStateChanged(user => {
       this.props.dispatch(update(user ? user.providerData[0]:null))
-      if(this.props.user&&this.props.user.state){
-        this.props.dispatch(fetchToDoItems(this.props.user.state.uid));
+      console.log(user.providerData[0].uid)
+      if(user){
+        this.props.dispatch(fetchToDoItems(user.providerData[0].uid));
       }else{
         this.props.dispatch(setToDoItems([]))
       }

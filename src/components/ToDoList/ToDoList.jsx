@@ -17,29 +17,26 @@ class ToDoList extends Component {
       <main className={styles.toDoList}>
         {
           this.props.user ?
-            this.props.user.state ?
-              toDoItems.length ?
-                (
-                  <>
-                    <FilterPanel parentState={this.state} setParentState={this.setState.bind(this)}/>
-                    {toDoItems
-                    .filter(this.state.statusFilterFn)
-                    .filter(this.state.contentFilterFn)
-                    .sort((a,b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated))
-                    .map(todo => 
-                      <React.Fragment key={todo._id}>
-                        <hr/>
-                        <ToDoItem toDoItem={todo} />
-                      </React.Fragment>
-                    )}
-                  </>
-                ) 
-              :
-              <p>Click the Plus Icon to Add A ToDo Item </p>
+            toDoItems.length ?
+              (
+                <>
+                  <FilterPanel parentState={this.state} setParentState={this.setState.bind(this)}/>
+                  {toDoItems
+                  .filter(this.state.statusFilterFn)
+                  .filter(this.state.contentFilterFn)
+                  .sort((a,b) => Date.parse(b.dateCreated) - Date.parse(a.dateCreated))
+                  .map(todo => 
+                    <React.Fragment key={todo._id}>
+                      <hr/>
+                      <ToDoItem toDoItem={todo} />
+                    </React.Fragment>
+                  )}
+                </>
+              ) 
             :
-            <p>Please <button onClick={signIn}>Sign In</button> To Add ToDo Items</p>
+            <p>Click the Plus Icon to Add A ToDo Item </p>
           :
-          <p>Loading...</p>
+          <p>Please <button onClick={signIn}>Sign In</button> To Add ToDo Items</p>
         }
       </main>
     );

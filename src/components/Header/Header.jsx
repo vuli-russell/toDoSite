@@ -27,14 +27,14 @@ class Header extends Component {
       <header className = {styles.header}>
         <h1>ToDoList</h1>
         <div className={styles.headerButtons}>
-          {this.props.user&&this.props.user.state ? 
+          {this.props.user ? 
             <>
               <div className={styles.faIcon} onClick={this.handleToggleAddForm}>
                 <FontAwesomeIcon icon={faPlus} />
               </div>
               <div className={styles.user}>
-                <p>{this.props.user.state.displayName}</p>
-                <img src={this.props.user.state.photoURL} alt="profile" id="profileImg"/>
+                <p>{this.props.user.displayName}</p>
+                <img src={this.props.user.photoURL} alt="profile" id="profileImg"/>
                 <div className={styles.faIcon} onClick={signOut}>
                   <FontAwesomeIcon icon={faSignOutAlt} />
                 </div>
