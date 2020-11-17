@@ -10,8 +10,9 @@ class ToDoList extends Component {
     statusFilterFn: (i) => true,
     contentFilterFn: (i) => true,
   }
+  
   render() {
-    const toDoItems = this.props.toDoItems;
+    const toDoItems = this.props.todos;
     return (
       <main className={styles.toDoList}>
         {
@@ -47,7 +48,8 @@ class ToDoList extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    user: state.user
+    user: state.user,
+    todos: state.todos
   }
 }
 
