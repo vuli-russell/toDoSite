@@ -3,20 +3,19 @@ import styles from "./FilterPanel.module.scss";
 
 class FilterPanel extends Component {
   
-  parentState = this.props.parentState;
-  setParentState = this.props.setParentState;
-
+  //ToDo: setting one function resets the other
 
   handleStatusInput = e => {
+    console.log({...this.props.parentState})
     switch (e.target.id) {
       case "all": 
-        this.setParentState({...this.parentState,statusFilterFn: (i) => true})
+        this.props.setParentState({...this.props.parentState,statusFilterFn: (i) => true})
         break;
       case "complete":
-        this.setParentState({...this.parentState,statusFilterFn: (i) => i.complete})
+        this.props.setParentState({...this.props.parentState,statusFilterFn: (i) => i.complete})
         break;
       case "incomplete":
-        this.setParentState({...this.parentState,statusFilterFn: (i) => !i.complete})
+        this.props.setParentState({...this.props.parentState,statusFilterFn: (i) => !i.complete})
         break;
       default:
         break;
@@ -25,8 +24,8 @@ class FilterPanel extends Component {
 
   handleSearchContentInput = e => {
     const searchStr = (e.target.value)
-    this.setParentState({
-      ...this.parentState,
+    this.props.setParentState({
+      ...this.props.parentState,
       contentFilterFn: (i) => i.title.match(new RegExp(searchStr,"i"))
       ||i.description.match(new RegExp(searchStr,"i"))
       ||i.tags.some(tag => tag.match(new RegExp(searchStr,"i")))
