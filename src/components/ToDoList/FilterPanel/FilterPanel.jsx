@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import styles from "./FilterPanel.module.scss";
 
 class FilterPanel extends Component {
-  
-  //ToDo: setting one function resets the other
+
+  //storing in state allows one checkbox to be selected by default. 
+  //Setting default in jsx causes it to reset to the selected one on rerender? i think
+  state={
+    isFirstSelection: true
+  }
 
   handleStatusInput = e => {
-    console.log({...this.props.parentState})
+    //set to flase to allow buttons to be selected per click with no defaults after first select
+    this.setState({isFirstSelection: null})
+    this.statusFilterSelected = e.target.id;
     switch (e.target.id) {
       case "all": 
         this.props.setParentState({...this.props.parentState,statusFilterFn: (i) => true})
@@ -36,7 +42,7 @@ class FilterPanel extends Component {
   render() {
     return (
       <section className={styles.filters}>     
-          <input type="radio" name="statusFilter" id="all" onChange={this.handleStatusInput}/>
+          <input type="radio" name="statusFilter" id="all" checked={this.state.isFirstSelection} onChange={this.handleStatusInput}/>
           <label htmlFor="all">All</label>          
           <input type="radio" name="statusFilter" id="complete" onChange={this.handleStatusInput}/>
           <label htmlFor="complete">Complete</label>
