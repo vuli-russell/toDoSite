@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./ToDoItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { faEdit, faTrashAlt, faCheck, faCheckCircle,  faTimesCircle, faUndo, faPlusCircle} from "@fortawesome/free-solid-svg-icons"
 import { deleteToDoItem, updateToDoItem } from "../../../services/toDoItemServices";
 
 class ToDoItem extends Component {
@@ -9,6 +9,8 @@ class ToDoItem extends Component {
     super(props)
     this.state = {
       isEditing: false,
+      tagInput: "",
+      color: this.props.toDoItem.color
     }
   }
 
@@ -33,7 +35,7 @@ class ToDoItem extends Component {
     // console.log(description)
     let response = await updateToDoItem({...this.props.toDoItem,title: title, description: description});
     console.log(response);
-    this.setState({isEditing: false});
+    this.setState({...this.state,isEditing: false});
   }
 
   sizeToScrollHeight(e){
@@ -47,15 +49,44 @@ class ToDoItem extends Component {
     console.log(response);
   }
 
+  handleAddTagSubmit = async (e) => {
+    e.preventDefault()
+    if(this.props.toDoItem.tags&&this.props.toDoItem.tags.includes(this.state.tagInput)){
+      //ToDO: replace alert with show Toast
+      alert("Tag already exists")
+    }else {
+      console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.length ? [...this.props.toDoItem.tags,this.state.tagInput] : [this.state.tagInput] }))
+      this.setState({...this.state, tagInput: ""})
+    }
+  }
+
+  handleAddTagInput = (e) => {
+    this.setState({...this.state, tagInput: e.target.value})
+  }
+
+  handleDeleteTag = async (tagToDelete) => {
+    console.log(await updateToDoItem({...this.props.toDoItem, tags : this.props.toDoItem.tags.filter(tag => tag!==tagToDelete)}));
+  }
+
+  handleColorInput = async (e) => {
+    this.setState({...this.state, color: e.target.value})
+  }
+
+  handleColorChange = async (e) => {
+    await updateToDoItem({...this.props.toDoItem, color: e.target.value})
+  }
+
   render() {
     const {title, description, _id, complete} = this.props.toDoItem;
     return (
-      <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`}>
+      <div className={`${styles.toDoItem} ${complete ? styles.complete : null} ${this.state.isEditing ? styles.editing : null}`} style={{backgroundColor : this.state.color}}>
+
         <header className={styles.header}>
+          {/* complete check and title */}
           <div className={styles.title}>
             <span className={styles.faIcon} 
             onClick={ this.toggleComplete}>
-              <FontAwesomeIcon icon={ faCheckCircle }/>
+              <FontAwesomeIcon icon={ complete ? faUndo : faCheckCircle }/>
             </span>
             <h1 id={`title-${_id}`} 
             contentEditable={ this.state.isEditing ? "true" : "false" }
@@ -63,7 +94,10 @@ class ToDoItem extends Component {
               {title}
             </h1>
           </div>
+
+          {/* edit delete and color item */}
           <section className={styles.buttons}>
+            <input type="color" onInput={this.handleColorInput} onBlur={this.handleColorChange} value={this.state.color ? this.state.color : "#ffffff"}/>
             <span className={styles.faIcon} onClick={ this.state.isEditing ? this.handleFinishEdit : this.handleStartEdit}>
               <FontAwesomeIcon icon={this.state.isEditing ? faCheck : faEdit }/>
             </span> 
@@ -71,8 +105,28 @@ class ToDoItem extends Component {
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>
           </section>
+
         </header>
 
+        {/* tags */}
+        <div className={styles.tagContainer}>
+          {this.props.toDoItem.tags ? this.props.toDoItem.tags.map(tag => 
+            <div key={tag} className={styles.tag}>
+              <p>{tag}</p>
+              <span className={styles.tagDeleteIcon} onClick={()=>this.handleDeleteTag(tag)}>
+                <FontAwesomeIcon icon={ faTimesCircle }/>
+              </span> 
+            </div>) 
+          : null}
+          <form onSubmit={this.handleAddTagSubmit}> 
+            <input type="text" value={this.state.tagInput} onInput={this.handleAddTagInput}/>
+          </form>
+          <span className={styles.tagAddIcon} onClick={this.handleAddTagSubmit}>
+            <FontAwesomeIcon icon={ faPlusCircle }/>
+          </span>
+        </div>
+
+        {/* description */}
         <article className={styles.description}>
           <p id={`description-${_id}`}  
           contentEditable={ this.state.isEditing ? "true" : "false" } 

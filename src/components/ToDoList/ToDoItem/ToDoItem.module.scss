@@ -10,11 +10,16 @@
     }
 
     &.editing {
-        background-color: rgb(118, 221, 115);
-        border: 2px black dashed;
+        border: 4px black dashed;
     }
 
-    border: 2px white dashed;
+    border: 4px rgba(255, 255, 255, 0) dashed;
+
+    .buttons{
+        display: flex;
+        align-items: center;
+
+    }
 
     .header {
         display : flex;
@@ -34,6 +39,45 @@
 
     }
 
+    .tagContainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .tagAddIcon {
+            margin-right: $base-spacing;
+            font-size: $font-size;
+            cursor: pointer;
+            padding: $base-spacing*0.5;
+
+             &:hover{
+                 color: rgb(46, 212, 46);
+             }
+        }
+
+        .tag {
+            display: flex;
+            border: 1px solid black;
+            margin: 0px $base-spacing;
+            padding: $base-spacing*0.5;
+            border-radius: $base-spacing;
+            
+            p {
+                margin: 0px;
+            }
+
+            .tagDeleteIcon {
+                font-size: $font-size;
+                margin-left: $base-spacing;
+                cursor: pointer;
+                
+                &:hover {
+                    color: red;
+                }
+            }
+        }
+    }
+
     .description {
 
         textarea {
@@ -49,3 +93,67 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px){
+    
+    .toDoItem {
+
+        .tagContainer {
+    
+            .tagAddIcon {
+                margin-right: $base-spacing*0.8;
+                font-size: $font-size*0.8;
+                padding: $base-spacing*0.5*0.8;
+            }
+    
+            .tag {
+                margin: 0px $base-spacing*0.8;
+                padding: $base-spacing*0.5*0.8;
+                border-radius: $base-spacing*0.8;
+    
+                .tagDeleteIcon {
+                    font-size: $font-size*0.8;
+                }
+            }
+        }
+    
+        .description {
+    
+            p {
+                padding: 0px $base-spacing*0.8;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .toDoItem {
+
+        .tagContainer {
+    
+            .tagAddIcon {
+                margin-right: $base-spacing*0.5;
+                font-size: $font-size*0.5;
+                padding: $base-spacing*0.5*0.5;
+            }
+    
+            .tag {
+                margin: 0px $base-spacing*0.5;
+                padding: $base-spacing*0.5*0.5;
+                border-radius: $base-spacing*0.5;
+    
+                .tagDeleteIcon {
+                    font-size: $font-size*0.5;
+                }
+            }
+        }
+    
+        .description {
+    
+            p {
+                padding: 0px $base-spacing*0.5;
+            }
+        }
+    }
+}
+
