@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { getToDoItems } from "../services/toDoItemServices";
+
 
 const toDoSlice = createSlice({
     name: 'todos',
@@ -27,13 +28,10 @@ export const { setToDoItems, toDoItemDeleted, toDoItemInserted, toDoItemUpdated}
 export default toDoSlice.reducer
 
 //thunks
-//change before deploy
-// const url = "https://vuli-todo-list-api.herokuapp.com/"
-const url = "http://localhost:8080/"
 
 export const fetchToDoItems = (userID) => {
     return async(dispatch) => {
-        const toDoItems = (await axios.get(`${url}todo/get?user=${userID}`)).data
+        const toDoItems = (await getToDoItems(userID)).data
         dispatch(setToDoItems(toDoItems))
     }
 }

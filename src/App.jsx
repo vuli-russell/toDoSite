@@ -7,6 +7,9 @@ import firebase from "./services/firebase"
 import { update } from "./redux/userSlice"
 import { connect } from "react-redux";
 import {setToDoItems, toDoItemInserted, toDoItemDeleted, toDoItemUpdated, fetchToDoItems} from "./redux/toDoSlice";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class App extends Component {
   constructor(){
@@ -14,9 +17,7 @@ class App extends Component {
     this.state = {
       toDoItems: []
     }
-    //change before deploy
-    // this.socket = io("https://vuli-todo-list-api.herokuapp.com/")
-    this.socket = io("http://localhost:8080/")
+    this.socket = io(process.env.REACT_APP_API_URL)
   }
 
   componentDidMount(){   
@@ -60,6 +61,7 @@ class App extends Component {
   }
   
   render() {
+    console.log(process.env.API_URL)
     return (
       <div className={styles.app}>
         <Header />

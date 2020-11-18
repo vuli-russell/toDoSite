@@ -1,8 +1,9 @@
 import axios from "axios";
+import dotenv from "dotenv";
 
-//change before deploy
-// const url = "https://vuli-todo-list-api.herokuapp.com/"
-const url = "http://localhost:8080/"
+dotenv.config();
+
+const url = process.env.REACT_APP_API_URL
 
 export const getToDoItems = async (userID) => {
     try{
